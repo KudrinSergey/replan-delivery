@@ -1,8 +1,8 @@
 package ru.netology.delivery.test;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import com.codeborne.selenide.logevents.SelenideLogger;
+import io.qameta.allure.selenide.AllureSelenide;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Keys;
 import ru.netology.delivery.data.DataGeneration;
 
@@ -13,10 +13,17 @@ import static com.codeborne.selenide.Selenide.*;
 
 class DeliveryTest {
 
+    @BeforeAll
+    static void setupAllureReports() {
+        SelenideLogger.addListener("AllureSelenide", new AllureSelenide());
+    }
+    @AfterAll
+    static void tearDownAll() {
+        SelenideLogger.removeListener("allure");
+    }
     @BeforeEach
     void setup() {
         open("http://localhost:9999");
-
     }
 
     @Test
